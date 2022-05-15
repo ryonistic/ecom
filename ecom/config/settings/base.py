@@ -44,7 +44,7 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 DATABASES = {
     "default": env.db(
         "DATABASE_URL",
-        default="postgres:///ecom",
+        default="postgres://postgres:password321@127.0.0.1:5432/ecom",
     ),
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
