@@ -1,1 +1,23 @@
 {% extends "base.html" %}
+{% block title %}
+Home
+{% endblock title %}
+{% block content %}
+
+<h1 class="text-center">Latest products</h1>
+<div class="d-flex flex-wrap">
+{% for product in products %}
+<div class="card" style="width: 18rem; margin: 4px;">
+  {% if product.image %}
+  <img src="{{product.image.url}}" class="card-img-top" alt="...">
+  {% endif %}
+  <div class="card-body">
+    <h5 class="card-title">{{product.name}}</h5>
+    <p class="card-text">{{product.description}}</p>
+    <h6 class="card-header btn">${{product.price}}</h6>
+    <a href="#" class="btn btn-primary">Add to Cart</a>
+  </div>
+</div>
+{% endfor %}
+</div>
+{% endblock content %}
