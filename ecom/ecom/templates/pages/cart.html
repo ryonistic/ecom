@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}
+Cart
+{% endblock title %}
+{% block content %}
+
+<h1 class="text-center">Your cart items</h1>
+<div class="d-flex flex-wrap">
+  <div class="container">
+{% if cart.items.all %}
+{% for product in cart.items.all %}
+<div class="card m-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+  {% if product.image %}
+  <img src="{{product.image.url}}" class="img-fluid rounded-start" alt="{{product.name}} 's image">
+  {% endif %}
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+          <h5 class="card-title">{{product.name}}</h5>
+            <p class="card-text">{{product.description}}</p>
+              <h6 class="card-header btn">${{product.price}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endfor %}
+{% else %}
+<h3 class="text-center">Oops! It seems your cart is empty at this time!</h3>
+{% endif %}
+</div>
+<div class="m-2 p-2">
+ <a class="btn btn-primary p-2" href="#">Checkout</a> 
+  </div>
+</div>
+{% endblock content %}

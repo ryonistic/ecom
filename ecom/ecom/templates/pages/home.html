@@ -15,7 +15,11 @@ Home
     <h5 class="card-title">{{product.name}}</h5>
     <p class="card-text">{{product.description}}</p>
     <h6 class="card-header btn">${{product.price}}</h6>
-    <a href="#" class="btn btn-primary">Add to Cart</a>
+    {% if product in user_cart.items.all %}
+    <a href="{% url 'store:add_to_cart' product.id %}" class="btn btn-danger">Added to Cart</a>
+    {% else %}
+    <a href="{% url 'store:add_to_cart' product.id %}" class="btn btn-primary">Add to Cart</a>
+    {% endif %}
   </div>
 </div>
 {% endfor %}

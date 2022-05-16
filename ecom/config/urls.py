@@ -4,13 +4,12 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
-from ecom.store.views import HomeView
+from ecom.store.views import HomeView, cart_view
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
-    path(
-        "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
-    ),
+    path("about/", TemplateView.as_view(template_name="pages/about.html"), name="about"),
+    path("cart/", cart_view, name="cart"),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management

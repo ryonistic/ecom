@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from PIL import Image
 
@@ -31,3 +32,11 @@ class Product(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+class Cart(models.Model):
+    owner = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    items = models.ManyToManyField(Product, blank=True)
+
+
+    def __str__(self):
+        return (f"{self.owner}'s cart")

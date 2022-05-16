@@ -55,7 +55,10 @@
               {% if request.user.is_authenticated %}
                 <li class="nav-item text-light">
                   {# URL provided by django-allauth/account/urls.py #}
-                  <a class="nav-link text-light" href="{% url 'users:detail' request.user.username  %}">{% translate "My Profile" %}</a>
+                  <a class="nav-link text-light" href="{% url 'users:detail' request.user.username  %}">{% translate "Profile" %}</a>
+                </li>
+                <li class="nav-item text-light">
+                  <a class="nav-link text-light" href="{% url 'cart' %}">{% translate "Cart" %}</a>
                 </li>
                 <li class="nav-item text-light">
                   {# URL provided by django-allauth/account/urls.py #}
