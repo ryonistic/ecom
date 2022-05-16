@@ -7,8 +7,9 @@ from .models import Cart, Product
 from django.views.generic.list import ListView
 from django.views.generic import CreateView
 from .forms import ProductCreateForm
+from django.contrib.auth.decorators import login_required
 
-class HomeView(ListView):
+class HomeView(LoginRequiredMixin, ListView):
     queryset = Product.objects.all()
     context_object_name = 'products'
     template_name = 'pages/home.html'
@@ -18,11 +19,12 @@ class HomeView(ListView):
         context['user_cart'] = get_object_or_404(Cart, owner=self.request.user)
         return context
 
-
+@login_required
 def cart_view(request):
     cart = get_object_or_404(Cart, owner=request.user)
     return render(request, 'pages/cart.html', {'cart':cart})
 
+@login_required
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     cart = get_object_or_404(Cart, owner=request.user)
