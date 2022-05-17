@@ -40,3 +40,10 @@ class Cart(models.Model):
 
     def __str__(self):
         return (f"{self.owner}'s cart")
+
+class Order(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    date_placed = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.id)
