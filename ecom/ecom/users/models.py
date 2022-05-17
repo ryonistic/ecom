@@ -1,7 +1,10 @@
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import CharField
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
+from ecom.store.models import Cart
 
 
 class User(AbstractUser):
@@ -24,3 +27,14 @@ class User(AbstractUser):
 
         """
         return reverse("users:detail", kwargs={"username": self.username})
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        user = User.objects.get(username=self.username)
+        try:
+            cart = Cart.objects.get(owner=user)
+            cart.save()
+        except ObjectDoesNotExist:
+            cart = Cart.objects.create(owner=user)
+            cart.save()
+
