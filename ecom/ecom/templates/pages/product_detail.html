@@ -1,18 +1,14 @@
 {% extends "base.html" %}
 {% block title %}
-Home
+Detail
 {% endblock title %}
 {% block content %}
-
-<h1 class="text-center">Latest products</h1>
-<div class="d-flex flex-wrap">
-{% for product in products %}
-<div class="card" style="width: 18rem; margin: 4px;">
+<div class="container" style="max-width: 64rem; margin: 4px;">
   {% if product.image %}
-  <a href="{% url 'store:product_detail' product.id %}"><img src="{{product.image.url}}" class="card-img-top" alt="{{product.name}} image"></a>
+  <img src="{{product.image.url}}" style="max-width: 24rem;" alt="...">
   {% endif %}
   <div class="card-body">
-    <h5 class="card-title"><a class="nav-link text-dark" href="{% url 'store:product_detail' product.id %}">{{product.name}}</a></h5>
+    <h1 class="card-title">{{product.name}}</h1>
     <p class="card-text">{{product.description}}</p>
     <h6 class="card-header btn">${{product.price}}</h6>
     {% if product in user_cart.items.all %}
@@ -22,6 +18,7 @@ Home
     {% endif %}
   </div>
 </div>
-{% endfor %}
-</div>
+
 {% endblock content %}
+
+

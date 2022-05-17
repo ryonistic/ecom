@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
+from django.views.generic.detail import DetailView
 from .models import Cart, Product
 from django.views.generic.list import ListView
 from django.views.generic import CreateView
@@ -34,7 +35,7 @@ def add_to_cart(request, product_id):
     else:
         cart.items.add(*[product])
         messages.success(request, 'Added to cart')
-    return redirect('home')
+    return redirect('cart')
 
 class CreateProduct(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = ProductCreateForm
@@ -42,3 +43,13 @@ class CreateProduct(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_message = 'Product added!'
     success_url = reverse_lazy('home')
     
+class ProductDetailView(LoginRequiredMixin, DetailView):
+
+    model = Product
+    template_name = 'pages/product_detail.html'
+    context_object_name = 'product'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_cart'] = get_object_or_404(Cart, owner=self.request.user)
+        return context
