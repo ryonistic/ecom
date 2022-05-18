@@ -17,6 +17,7 @@
     <!-- Your stuff: Third-party CSS libraries go here -->
 
     <!-- This file stores project-specific CSS -->
+    <script src="https://js.stripe.com/v3/"></script>
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
     {% endblock %}
     <!-- Le javascript
@@ -42,7 +43,7 @@
           <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <a class="navbar-brand" href="{% url 'home' %}">eCom</a>
+          <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/site_logo.png' %}" style="max-width: 40px"/></a>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
@@ -59,6 +60,9 @@
                 </li>
                 <li class="nav-item text-light">
                   <a class="nav-link text-light" href="{% url 'cart' %}">{% translate "Cart" %}</a>
+                </li>
+                <li class="nav-item text-light">
+                  <a class="nav-link text-light" href="{% url 'store:orders' %}">{% translate "Orders" %}</a>
                 </li>
                 <li class="nav-item text-light">
                   {# URL provided by django-allauth/account/urls.py #}

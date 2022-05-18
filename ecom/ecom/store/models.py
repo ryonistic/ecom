@@ -42,7 +42,8 @@ class Cart(models.Model):
         return (f"{self.owner}'s cart")
 
 class Order(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL,null=True, on_delete=models.CASCADE)
+    items = models.ManyToManyField(Product, blank=True)
     date_placed = models.DateField(auto_now_add=True)
 
     def __str__(self):

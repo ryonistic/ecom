@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}
+Orders
+{% endblock title %}
+{% block content %}
+
+<h1 class="text-center">Your past orders</h1>
+<div class="d-flex flex-wrap">
+  <div class="container">
+{% if orders %}
+{% for order in orders %}
+<div class="card m-3" style="max-width: 540px;">
+  <div class="row g-0">
+    <div class="col-md-8">
+      <div class="card-body">
+          <h5 class="card-title">{{order.date_placed}}</h5>
+          <ul class="">
+            {% for item in order.items.all %}
+            <li class=""><a class="nav-link text-dark" href="{% url 'store:product_detail' item.id %}">{{item.name}} ${{item.price}}</a></li>
+            {% endfor %}
+          </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endfor %}
+{% else %}
+<h3 class="text-center">Oops! It seems you have no orders to show!</h3>
+{% endif %}
+</div>
+</div>
+{% endblock content %}

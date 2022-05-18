@@ -36,7 +36,7 @@ Cart
 {% endif %}
 </div>
 <div class="m-2 p-2">
- <a class="btn btn-primary p-2" href="#">Checkout</a> 
+  <a class="btn btn-primary p-2" href="{% url 'store:place_order' %}">Checkout</a> 
   </div>
 </div>
 {% endblock content %}

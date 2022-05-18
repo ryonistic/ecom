@@ -4,6 +4,7 @@ Base settings to build other settings files upon.
 from pathlib import Path
 
 import environ
+from decouple import config as secret_manager
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # ecom/
@@ -86,6 +87,10 @@ LOCAL_APPS = [
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
+# payment stuff
+STRIPE_PUBLIC_KEY = secret_manager('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = secret_manager('STRIPE_SECRET_KEY')
 
 # MIGRATIONS
 # ------------------------------------------------------------------------------

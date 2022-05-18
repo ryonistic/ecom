@@ -39,6 +39,8 @@ Pillow = "==9.1.0"
 Django = "==3.2.13"
 Werkzeug = {version = "==2.0.3", extras = ["watchdog"]}
 Sphinx = "==4.5.0"
+stripe = "*"
+python-decouple = "*"
 
 [dev-packages]
 
