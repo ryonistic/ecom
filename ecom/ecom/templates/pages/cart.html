@@ -13,7 +13,7 @@ Cart
   <div class="row g-0">
     <div class="col-md-4">
   {% if product.image %}
-  <img src="{{product.image.url}}" class="img-fluid rounded-start" alt="{{product.name}} 's image">
+  <img src="{{product.image.url}}" class="img-fluid rounded-start" alt="{{product.name}}'s image">
   {% endif %}
     </div>
     <div class="col-md-8">
@@ -36,6 +36,17 @@ Cart
 {% endif %}
 </div>
 <div class="m-2 p-2">
+  <div class="card">
+  <div class="card-header">
+    Cart Total
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>${{cart_total}}</p>
+      <h6 class="text-center">Total Items: {{total_items}}</h6>
+    </blockquote>
+  </div>
+</div>
   <a class="btn btn-primary p-2" href="{% url 'store:place_order' %}">Checkout</a> 
   </div>
 </div>

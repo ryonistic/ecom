@@ -25,7 +25,12 @@ class HomeView(LoginRequiredMixin, ListView):
 @login_required
 def cart_view(request):
     cart = get_object_or_404(Cart, owner=request.user)
-    return render(request, 'pages/cart.html', {'cart':cart})
+    total=0
+    for item in cart.items.all():
+        total += item.price
+    cart_total = total
+    total_items = len(cart.items.all())
+    return render(request, 'pages/cart.html', {'cart':cart, 'cart_total':cart_total, 'total_items':total_items})
 
 @login_required
 def orders(request):
