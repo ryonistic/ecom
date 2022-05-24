@@ -45,10 +45,11 @@ def add_to_cart(request, product_id):
     if product in cart.items.all():
         cart.items.remove(*[product])
         messages.success(request, 'Removed from cart')
+        return redirect('cart')
     else:
         cart.items.add(*[product])
         messages.success(request, 'Added to cart')
-    return redirect('cart')
+    return redirect('home')
 
 @login_required
 def place_order(request):
