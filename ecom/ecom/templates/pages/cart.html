@@ -20,7 +20,7 @@ Cart
       <div class="card-body">
           <h5 class="card-title">{{product.name}}</h5>
             <p class="card-text">{{product.description}}</p>
-              <h6 class="card-header btn">${{product.price}}</h6>
+              <h6 class="card-header btn">₹{{product.cost_price}}</h6>
                 {% if product in cart.items.all %}
                 <a href="{% url 'store:add_to_cart' product.id %}" class="btn btn-danger">Remove</a>
                 {% else %}
@@ -42,7 +42,7 @@ Cart
   </div>
   <div class="card-body">
     <blockquote class="blockquote mb-0">
-      <p>${{cart_total}}</p>
+      <p>₹{{cart_total}}</p>
       <h6 class="text-center">Total Items: {{total_items}}</h6>
     </blockquote>
   </div>

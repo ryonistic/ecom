@@ -10,12 +10,23 @@ Detail
   <div class="card-body">
     <h1 class="card-title">{{product.name}}</h1>
     <p class="card-text">{{product.description}}</p>
-    <h6 class="card-header btn">${{product.price}}</h6>
+
+    {% for price in prices %}
+    {% if price.product == product %}
+    <h6 class="card-header btn">₹{{product.cost_price}}</h6>
     {% if product in user_cart.items.all %}
     <a href="{% url 'store:add_to_cart' product.id %}" class="btn btn-danger">Added to Cart</a>
+    <form action="{% url 'store:create-checkout-session' price.id %}" method="POST">
+          {% csrf_token %}
+          <button type="submit"  class="btn btn-primary">Buy Now</button>
+    </form>
+
     {% else %}
     <a href="{% url 'store:add_to_cart' product.id %}" class="btn btn-primary">Add to Cart</a>
     {% endif %}
+
+    {% endif %}
+    {% endfor %}
   </div>
 </div>
 

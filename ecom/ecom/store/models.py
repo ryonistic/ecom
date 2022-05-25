@@ -14,7 +14,8 @@ class Product(models.Model):
             ('Others', 'Others'),
             )
     name = models.CharField(max_length=255)
-    price = models.PositiveBigIntegerField(default=99)
+    cost_price = models.PositiveBigIntegerField(default=99)
+    stripe_product_id = models.CharField(max_length=100, null=True, blank=True)
     date_added = models.DateField(auto_now_add=True)
     type = models.CharField(choices = TYPE_CHOICES, max_length=255)
     description = models.TextField(max_length=500)
@@ -48,3 +49,12 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+class Price(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    stripe_price_id = models.CharField(max_length=100)
+    price = models.IntegerField(default=0)
+
+    def __str__(self):
+        return str(self.product)

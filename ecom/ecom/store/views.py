@@ -1,3 +1,5 @@
+from django.views.generic.base import TemplateView
+import stripe
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -9,7 +11,39 @@ from django.views.generic.list import ListView
 from django.views.generic import CreateView
 from .forms import ProductCreateForm
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.views import View
 
+from .models import Price
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
+class CreateCheckoutSessionView(View):
+
+    def post(self, request, *args, **kwargs):
+        price = Price.objects.get(id=self.kwargs["pk"])
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[
+                {
+                    'price': price.stripe_price_id,
+                    'quantity': 1,
+                },
+            ],
+            mode='payment',
+            success_url=settings.BASE_URL + '/store/success/',
+            cancel_url=settings.BASE_URL + '/store/cancel/',
+        )
+        return redirect(checkout_session.url)
+
+
+class SuccessView(TemplateView):
+    template_name = "success.html"
+
+
+class CancelView(TemplateView):
+    template_name = "cancel.html"
 
 
 class HomeView(LoginRequiredMixin, ListView):
@@ -20,6 +54,7 @@ class HomeView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user_cart'] = get_object_or_404(Cart, owner=self.request.user)
+        context['prices'] = Price.objects.all()
         return context
 
 @login_required
@@ -27,7 +62,7 @@ def cart_view(request):
     cart = get_object_or_404(Cart, owner=request.user)
     total=0
     for item in cart.items.all():
-        total += item.price
+        total += item.cost_price
     cart_total = total
     total_items = len(cart.items.all())
     return render(request, 'pages/cart.html', {'cart':cart, 'cart_total':cart_total, 'total_items':total_items})
@@ -57,9 +92,9 @@ def place_order(request):
     total = 0
     if cart.items.all():
         for item in cart.items.all():
-            total += item.price
+            total += item.cost_price
         if total > 1000:
-            messages.info(request, 'Orders should be under 1000$ in total.')
+            messages.info(request, 'Orders should be under 1000₹ in total.')
             return redirect('cart')
         else:
             order = Order.objects.create(creator=request.user)
@@ -89,4 +124,5 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user_cart'] = get_object_or_404(Cart, owner=self.request.user)
+        context['prices'] = Price.objects.filter(product__id=self.kwargs['pk'])
         return context

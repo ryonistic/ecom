@@ -92,6 +92,9 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 STRIPE_PUBLIC_KEY = secret_manager('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = secret_manager('STRIPE_SECRET_KEY')
 
+# base url is the default url for the site, in local settings it is localhost
+BASE_URL = "http://127.0.0.1:8000"
+
 # MIGRATIONS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#migration-modules
