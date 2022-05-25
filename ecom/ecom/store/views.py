@@ -39,6 +39,10 @@ class CreateCheckoutSessionView(View):
             success_url=settings.BASE_URL + '/store/success/',
             cancel_url=settings.BASE_URL + '/store/cancel/',
         )
+        order = Order.objects.create(creator=request.user)
+        order.save()
+        order.items.add(*[price.product])
+
         return redirect(checkout_session.url)
 
 

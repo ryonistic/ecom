@@ -12,20 +12,19 @@ Detail
     <p class="card-text">{{product.description}}</p>
 
     {% for price in prices %}
-    {% if price.product == product %}
-    <h6 class="card-header btn">₹{{product.cost_price}}</h6>
-    {% if product in user_cart.items.all %}
-    <a href="{% url 'store:add_to_cart' product.id %}" class="btn btn-danger">Added to Cart</a>
-    <form action="{% url 'store:create-checkout-session' price.id %}" method="POST">
-          {% csrf_token %}
-          <button type="submit"  class="btn btn-primary">Buy Now</button>
-    </form>
+          {% if price.product == product %}
+              <h6 class="card-header btn">₹{{product.cost_price}}</h6>
+                    <form action="{% url 'store:create-checkout-session' price.id %}" method="POST">
+                          {% csrf_token %}
+                          <button type="submit"  class="btn btn-primary" style="margin:2px;">Buy Now</button>
+                    </form>
+                    {% if product in user_cart.items.all %}
+                    <a href="{% url 'store:add_to_cart' product.id %}" class="btn btn-danger" style="margin:2px;">Added to Cart</a>
+                    {% else %}
+                    <a href="{% url 'store:add_to_cart' product.id %}" class="btn btn-primary" style="margin:2px;">Add to Cart</a>
+                    {% endif %}
 
-    {% else %}
-    <a href="{% url 'store:add_to_cart' product.id %}" class="btn btn-primary">Add to Cart</a>
-    {% endif %}
-
-    {% endif %}
+          {% endif %}
     {% endfor %}
   </div>
 </div>

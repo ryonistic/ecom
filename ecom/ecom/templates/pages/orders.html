@@ -16,7 +16,7 @@ Orders
           <h5 class="card-title">{{order.date_placed}}</h5>
           <ul class="">
             {% for item in order.items.all %}
-            <li class=""><a class="nav-link text-dark" href="{% url 'store:product_detail' item.id %}">{{item.name}} ${{item.price}}</a></li>
+            <li class=""><a class="nav-link text-dark" href="{% url 'store:product_detail' item.id %}">{{item.name}} ~ ₹{{item.cost_price}}</a></li>
             {% endfor %}
           </ul>
           </div>
