@@ -1,7 +1,7 @@
 from django.views.generic.base import TemplateView
 import stripe
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
@@ -18,6 +18,10 @@ from .models import Price
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+class SuperUserRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
 class CreateCheckoutSessionView(View):
 
@@ -109,7 +113,7 @@ def place_order(request):
     return redirect('cart')
 
 
-class CreateProduct(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class CreateProduct(SuperUserRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = ProductCreateForm
     template_name = 'create_product.html'
     success_message = 'Product added!'
