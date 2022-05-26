@@ -13,6 +13,8 @@ Moved to [settings](https://github.com/ryonistic/ecom/tree/main/ecom/config/sett
 ## Showcase
 <img src="https://github.com/ryonistic/ecom/blob/main/ecom/showcase/home.png?raw=true" width="auto" height=350 alt="Home Page" />
 
+More from [showcase](https://github.com/ryonistic/ecom/tree/main/ecom/showcase).
+
 ## Basic Commands
 
 ### Setting Up Your Users
