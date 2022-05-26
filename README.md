@@ -11,6 +11,8 @@ License: MIT
 Moved to [settings](https://github.com/ryonistic/ecom/tree/main/ecom/config/settings).
 
 ## Showcase
+[![Django eCommerce website](https://github.com/ryonistic/ecom/blob/main/ecom/showcase/home.png?raw=true)](https://youtu.be/eGP8SJQ3nOs "Django eCommerce website with stripe integration Portfolio project")
+
 <img src="https://github.com/ryonistic/ecom/blob/main/ecom/showcase/home.png?raw=true" width="auto" height=350 alt="Home Page" />
 
 More from [showcase](https://github.com/ryonistic/ecom/tree/main/ecom/showcase).
