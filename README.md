@@ -13,7 +13,7 @@ Moved to [settings](https://github.com/ryonistic/ecom/tree/main/ecom/config/sett
 ## Showcase
 [![Django eCommerce website](https://github.com/ryonistic/ecom/blob/main/ecom/showcase/home.png?raw=true)](https://youtu.be/eGP8SJQ3nOs "Django eCommerce website with stripe integration Portfolio project")
 
-<img src="https://github.com/ryonistic/ecom/blob/main/ecom/showcase/home.png?raw=true" width="auto" height=350 alt="Home Page" />
+Click on the above image to go to the portfolio video youtube link
 
 More from [showcase](https://github.com/ryonistic/ecom/tree/main/ecom/showcase).
 
