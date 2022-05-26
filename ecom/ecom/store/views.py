@@ -1,4 +1,5 @@
 from django.views.generic.base import TemplateView
+from django.db.models import Q
 import stripe
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -134,3 +135,11 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
         context['user_cart'] = get_object_or_404(Cart, owner=self.request.user)
         context['prices'] = Price.objects.filter(product__id=self.kwargs['pk'])
         return context
+
+
+# this search functionality makes use of icontains, which queries the DBMS for case-insensitive matches
+def search(request, search_str):
+	products = Product.objects.filter(Q(name__icontains=search_str) | Q(description__icontains=search_str))
+	user_cart = get_object_or_404(Cart, owner=request.user)
+	context = {'searched':search_str, 'products':products, 'user_cart':user_cart}
+	return render(request, 'search_results.html', context)

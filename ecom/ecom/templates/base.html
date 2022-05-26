@@ -82,6 +82,13 @@
               {% endif %}
             </ul>
           </div>
+              <form class="d-flex" action="http://127.0.0.1:8000/store/search" onsubmit="location.href = document.getElementById('f1').value + 
+                document.getElementById('searched').value; return false">
+              <input class="form-control me-2" type="search" id="searched" placeholder="Search" aria-label="Search">
+              <input type=hidden id=f1 name=f1 value="http://127.0.0.1:8000/store/search/">
+              <button class="btn btn-success" type="submit" id="submit-btn">Search</button>
+            </form>
+
         </div>
       </nav>
 

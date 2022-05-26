@@ -8,7 +8,8 @@ orders,
 place_order,
 CancelView, 
 SuccessView, 
-CreateCheckoutSessionView
+CreateCheckoutSessionView,
+search
 )
 
 app_name = "store"
@@ -20,6 +21,7 @@ urlpatterns = [
         path('product_detail/<int:pk>/', ProductDetailView.as_view(), name='product_detail'),
         path('cancel/', CancelView.as_view(), name='cancel'),
         path('success/', SuccessView.as_view(), name='success'),
+        path('search/<str:search_str>', search, name='search'),
         path('create-checkout-session/<pk>/', CreateCheckoutSessionView.as_view(), name='create-checkout-session')
 
         ]
