@@ -10,6 +10,9 @@ License: MIT
 
 Moved to [settings](https://github.com/ryonistic/ecom/tree/main/ecom/config/settings).
 
+## Showcase
+<img src="https://github.com/ryonistic/ecom/blob/main/ecom/showcase/home.png?raw=true" width="auto" height=350 alt="Home Page" />
+
 ## Basic Commands
 
 ### Setting Up Your Users
