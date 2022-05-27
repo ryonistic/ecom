@@ -7,10 +7,10 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
-from .models import Cart, Order, Product
+from .models import Cart, Order, Product, Review
 from django.views.generic.list import ListView
 from django.views.generic import CreateView
-from .forms import ProductCreateForm
+from .forms import ProductCreateForm, ReviewCreateForm
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.views import View
@@ -134,8 +134,24 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['user_cart'] = get_object_or_404(Cart, owner=self.request.user)
         context['prices'] = Price.objects.filter(product__id=self.kwargs['pk'])
+        context['reviews'] = Review.objects.filter(product__id=self.kwargs['pk'])
+        context['form'] = ReviewCreateForm
+        context['range1'] = range(1)
+        context['range2'] = range(2)
+        context['range3'] = range(3)
+        context['range4'] = range(4)
+        context['range5'] = range(5)
         return context
 
+    def post(self, *args, **kwargs):
+        form = ReviewCreateForm(self.request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.publisher = self.request.user
+            review.product = Product.objects.get(id=self.kwargs['pk'])
+            review.save()
+            messages.success(self.request, 'Review was added.')
+            return redirect('store:product_detail', self.kwargs['pk'])
 
 # this search functionality makes use of icontains, which queries the DBMS for case-insensitive matches
 def search(request, search_str):
