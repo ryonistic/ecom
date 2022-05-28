@@ -9,6 +9,7 @@ Orders
   <div class="container">
 {% if orders %}
 {% for order in orders %}
+{% if order.paid %}
 <div class="card m-3" style="max-width: 540px;">
   <div class="row g-0">
     <div class="col-md-8">
@@ -23,6 +24,7 @@ Orders
         </div>
       </div>
     </div>
+{% endif %}
 {% endfor %}
 {% else %}
 <h3 class="text-center">Oops! It seems you have no orders to show!</h3>

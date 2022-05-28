@@ -28,6 +28,10 @@ class CreateCheckoutSessionView(View):
 
     def post(self, request, *args, **kwargs):
         price = Price.objects.get(id=self.kwargs["pk"])
+        order = Order.objects.create(creator=request.user)
+        order.save()
+        order.items.add(*[price.product])
+
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['card'],
             line_items=[
@@ -37,22 +41,24 @@ class CreateCheckoutSessionView(View):
                 },
             ],
             mode='payment',
-            success_url=settings.BASE_URL + '/store/success/',
-            cancel_url=settings.BASE_URL + '/store/cancel/',
+            success_url=settings.BASE_URL + f'/store/success/{order.id}',
+            cancel_url=settings.BASE_URL + f'/store/cancel/{order.id}',
         )
-        order = Order.objects.create(creator=request.user)
-        order.save()
-        order.items.add(*[price.product])
-
+        
         return redirect(checkout_session.url)
 
 
-class SuccessView(TemplateView):
-    template_name = "success.html"
 
+def success_view(request, pk):
+    order = Order.objects.get(id=pk)
+    order.paid = True
+    order.save()
+    return render(request, "success.html")
 
-class CancelView(TemplateView):
-    template_name = "cancel.html"
+def cancel_view(request, pk):
+    order = Order.objects.get(id=pk)
+    order.delete()
+    return render(request, "cancel.html")
 
 
 class HomeView(LoginRequiredMixin, ListView):

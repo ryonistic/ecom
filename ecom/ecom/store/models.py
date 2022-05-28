@@ -46,6 +46,7 @@ class Order(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.CASCADE)
     items = models.ManyToManyField(Product, blank=True)
     date_placed = models.DateField(auto_now_add=True)
+    paid = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.id)
