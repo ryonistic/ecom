@@ -49,12 +49,14 @@ class CreateCheckoutSessionView(View):
 
 
 
+@login_required
 def success_view(request, pk):
     order = Order.objects.get(id=pk)
     order.paid = True
     order.save()
     return render(request, "success.html")
 
+@login_required
 def cancel_view(request, pk):
     order = Order.objects.get(id=pk)
     order.delete()
