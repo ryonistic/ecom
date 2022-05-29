@@ -32,6 +32,7 @@ Detail
 
 </div>
 <form method="POST">
+    <h2 class="card-title">Leave a review:</h2>
   {% csrf_token %}
   {{form|crispy}}
 <button type="submit"  class="btn btn-primary" style="margin:2px;">Publish</button>
