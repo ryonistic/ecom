@@ -41,6 +41,10 @@ Werkzeug = {version = "==2.0.3", extras = ["watchdog"]}
 Sphinx = "==4.5.0"
 stripe = "*"
 python-decouple = "*"
+gunicorn = "==20.1.0"
+psycopg2 = "==2.9.3"
+django-storages = {version = "==1.12.3", extras = ["boto3"]}
+django-anymail = {version = "==8.5", extras = ["mailgun"]}
 
 [dev-packages]
 
