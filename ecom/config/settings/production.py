@@ -4,14 +4,9 @@ from .base import env
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
-DATABASES = { 'default': dj_database_url.config( default=config('DATABASE_URL') )}
-
-# env("DJANGO_SECRET_KEY")
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com', 'https://ryonisticecom.herokuapp.com/']
-# env.list("DJANGO_ALLOWED_HOSTS", default=["github.com/ryonistic/ecom"])
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["github.com/ryonistic/ecom"])
 
 # DATABASES
 # ------------------------------------------------------------------------------
