@@ -10,6 +10,21 @@ License: MIT
 
 Moved to [settings](https://github.com/ryonistic/ecom/tree/main/ecom/config/settings).
 
+To get started, clone the repository and add a file called .env in the folder where the manage.py file is.
+This .env file will contain the following information:-
+
+STRIPE_PUBLIC_KEY = "Whatever your public stripe key is, you need to setup stripe payments, there are many tutorials for that"
+STRIPE_SECRET_KEY = "This will be the secret key for stripe, also available in your stripe account"
+
+DJANGO_SECRET_KEY = "Whatever secret key you may want to use. Make it complicated."
+
+This is a sample database name, you may create a database in your PC using this command:- 
+
+        $ createdb --username=postgres ecommerce
+
+LOCAL_DATABASE_NAME = "ecommerce"
+LOCAL_DATABASE_PASSWORD = "password321"
+
 ## Showcase
 [![Django eCommerce website](https://github.com/ryonistic/ecom/blob/main/ecom/showcase/home.png?raw=true)](https://youtu.be/eGP8SJQ3nOs "Django eCommerce website with stripe integration Portfolio project")
 
